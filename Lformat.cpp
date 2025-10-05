@@ -2,7 +2,7 @@
 
 String Lformat(String name, double value, String unit, int id) {
   // Error handling
-  if (id < 1 || id > 10) {
+  if (id < 1 || id > 20) {
     Serial.println("[ERROR] Invalid ID. Must be between 1 and 10.");
     Serial.println("Syntax: Lformat(\"name\", value, \"unit\", id);");
     while (true);  // Stop execution
@@ -24,4 +24,29 @@ String Lformat(String name, double value, String unit, int id) {
   String Batch = name + ";" + String(value) + ";" + unit + ";" + String(id);
   Serial.println(Batch);  // Print inside the function
   return Batch;
+}
+
+String LBFormat(const String &label, double value, const String &unit, int sensorId) {
+    // -------------------- Error handling --------------------
+    if (sensorId < 1 || sensorId > 20) {
+        Serial.println("[ERROR] Invalid ID. Must be between 1 and 10.");
+        Serial.println("Syntax: LBFormat(\"name\", value, \"unit\", id);");
+        while (true);  // Stop execution
+    }
+
+    if (label.length() == 0) {
+        Serial.println("[ERROR] Name cannot be empty.");
+        Serial.println("Syntax: LBFormat(\"name\", value, \"unit\", id);");
+        while (true);
+    }
+
+    if (unit.length() == 0) {
+        Serial.println("[ERROR] Unit cannot be empty.");
+        Serial.println("Syntax: LBFormat(\"name\", value, \"unit\", id);");
+        while (true);
+    }
+
+    // -------------------- Build formatted line --------------------
+    String line = label + ";" + String(value, 2) + ";" + unit + ";" + String(sensorId) + "\n";
+    return line;
 }
